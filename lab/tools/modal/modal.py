@@ -1,9 +1,8 @@
 """Modal impact synthesis: a struck object as decaying sinusoids plus a short excitation.
 
-Self-contained copy of the functions the impact recipes use from the set2/p2 experiment
-(lab/experiments/set2/p2/pan_modal.py and step4_pan.py, frozen at facb919) and the p2 DSP helpers
-(lab/p2/sfx/common.py), so that a recipe needs only numpy and scipy. Same arithmetic, same RNG
-order: renders are sample-identical to the experiment code on the same platform.
+Self-contained form of the functions the impact recipes first used as project experiment code (not
+published) and its DSP helpers, so that a recipe needs only numpy and scipy. Same arithmetic, same RNG
+order: renders were sample-identical to the experiment code on the same platform.
 
   extract_modes(crop, onset, fmin=...)   peaks of the first 50 ms after the onset -> [{f, amp, t60, peak_db}]
   components(params, sr, seed)           {"body", "transient"}: mode bank and synthetic burst, kept apart
@@ -22,7 +21,7 @@ from scipy import signal
 FS = 48000
 
 
-# ---- DSP helpers (lab/p2/sfx/common.py)
+# ---- DSP helpers
 
 def bandpass(x, sr, fc, q, order=2):
     bw = fc / q
@@ -56,7 +55,7 @@ def raised_fade_out(n):
     return 0.5 + 0.5 * np.cos(np.linspace(0, np.pi, n))
 
 
-# ---- modal body (pan_modal.py)
+# ---- modal body
 
 def extract_modes(crop, onset, fs=FS, win_s=0.05, nfft=65536, fmin=150.0, fmax=16000.0, thresh_db=-40.0,
                   min_sep_hz=30.0, max_modes=40):
@@ -143,7 +142,7 @@ def place(attack, n):
     return a
 
 
-# ---- recorded attack (step4_pan.py, set1/p4 frozen rules)
+# ---- recorded attack
 
 def hp300(x, sr=FS):
     sos = signal.butter(4, 300.0, btype="high", fs=sr, output="sos")
