@@ -1,0 +1,3 @@
+[submodule "wedo/wedo-sfx"]
+	path = wedo/wedo-sfx
+	url = https://github.com/iwaag/wedo-sfx.git
