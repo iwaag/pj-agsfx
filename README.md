@@ -32,6 +32,7 @@ renders:
 | `knock_Hp.wav` | Hp: as H, with the attack at the recording's own attack/body ratio |
 | `knock_Pv_up3st_ring06.wav` | Pv: P with every mode ×2^(3/12) (+3 semitones) and T60 ×0.6 (shorter ring) |
 | `knock_reference.wav` | the recording, cropped from 1 ms before its onset to 1 s |
+| `knock_P_<n>st_ring<r>.wav` | only with `--variant n:r` (repeatable, `--variant=-2:1.5` when negative): P retuned by n semitones with T60 × r; `--variant 3:0.6` equals Pv |
 | `render.json` | onset, the 40 modes, gains, and a sha256 of each file's samples |
 
 ### Requirements
