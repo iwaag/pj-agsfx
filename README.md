@@ -51,7 +51,7 @@ uv run --with numpy --with scipy --with soundfile python \
 
 The recipe stops if the downloaded preview's sha256 is not `f3faa5284a41900a1282771a343ad8537a02880066b1a1420bf3c77bd0d0415b`.
 It prints one line per file and writes `out/`. For variants, scale the modes' `f` and `t60` as Pv does
-(the recipe's last lines show how).
+(the `pv = …` line in `render.py`, just before the Pv file is written; the reference crop comes after it).
 
 ### What was observed, by kind
 
