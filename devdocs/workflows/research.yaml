@@ -1,0 +1,51 @@
+# Workflow definition (ag.workflow.v2). Edit here or in the workflow editor.
+schema: ag.workflow.v2
+id: research
+name: Research and try
+intent: |
+  Answer the person's question about making or judging sound effects: survey
+  what is known and record it in study-sfx, try the most promising answer on
+  this host and keep what holds beyond the run in wedo-sfx, then explain the
+  result.
+documentation:
+  policy: default
+execution:
+  agent: sfx-agent
+  guides: [agent/research.md]
+intake:
+  zulip: requests
+repositories:
+  project: {path: ., access: editable}
+  study: {path: study/study-sfx, access: editable}
+  wedo: {path: wedo/wedo-sfx, access: editable}
+  lab: {path: lab, access: editable}
+nodes:
+  survey:
+    type: study
+    name: Survey
+    description: |
+      Survey sources on the question (papers, documentation, repositories,
+      practitioners' reports). Record the reusable findings in study-sfx with
+      their citations and confidence; keep the run-specific reading in the
+      run folder.
+    repositories: [study, wedo]
+  practice:
+    type: do
+    name: Try it here
+    description: |
+      Try what the survey suggests on this host, in
+      lab/experiments/research-<run>/. Keep what holds beyond this run in
+      wedo-sfx (a method card or its evidence, a guide row, an escalation
+      answered or opened) and say what could not be tried here and why.
+    repositories: [lab, wedo, study]
+  explain:
+    type: talk
+    name: Explain
+    description: |
+      Explain what was found, what changed in study-sfx and wedo-sfx, what
+      remains uncertain and what a next run could do, and hear what the
+      person thinks.
+    repositories: [study, wedo]
+edges:
+  - {from: survey, to: practice}
+  - {from: practice, to: explain}

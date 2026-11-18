@@ -80,8 +80,17 @@ It prints one line per file and writes `out/`. For variants, scale the modes' `f
 See the case and the method card for the assumptions made when moving the method from a metal pan to wood and
 the failure modes (scrapes, overlapping sources, modes closer than about 40 Hz).
 
+## Workflows and run records
+
+`devdocs/workflows/create.yaml` (make an effect, screen it, let a person listen, record what was learned) and
+`research.yaml` (survey, try, explain) are the two workflows a request can start. Three run records (under `devdocs/`, by workflow and run number) show them at
+work: `create/run-001` (plucked string, procedural vs generated; inconclusive), `create/run-002`
+(notification chime) and `research/run-001` (a stylised wind cue). They are the project's own reports, each with
+one listener and one session, and they link to experiment code, literature notes and agent guides that are **not
+published** here; those links do not resolve. Other run records stay internal.
+
 ## Not included
 
 The project's other routes (generative models through a ComfyUI server, layered scenes, procedural textures),
-its experiments, literature surveys, review tooling, run records and the agents' operating guides. See
+its experiments, literature surveys, review tooling, other run records and the agents' operating guides. See
 [NOTICE.md](NOTICE.md) for licences and the origin of this selection.

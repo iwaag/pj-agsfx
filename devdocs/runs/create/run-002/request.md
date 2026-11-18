@@ -1,0 +1,2 @@
+Please make a short notification chime sound effect, under 1 second long (hard limit; state the measured duration). A pleasant, clear "ding" suited to a notification, not harsh or loud. It is part of a small notification kit (together with a bell icon from forge); the person wants to review both on one page.
+Need back: the audio file (WAV or similar) with its durable reference, its measured duration, and how it was made. Present it so it can be listened to with one click.

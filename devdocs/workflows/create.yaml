@@ -1,0 +1,82 @@
+# Workflow definition (ag.workflow.v2). Edit here or in the workflow editor.
+schema: ag.workflow.v2
+id: create
+name: Create a sound effect
+intent: |
+  Make the sound effect the person asks for with the method that fits it,
+  chosen from precedent, analogy or generation, and screen the candidates
+  before anyone listens. Present them so the person can listen and judge with
+  one click. Afterwards record what the request taught (the case, the
+  method's evidence, the guide, the calibration of the prediction against
+  the verdict, an escalation when there is a gap) so the next request starts
+  from it.
+documentation:
+  policy: default
+execution:
+  agent: sfx-agent
+  guides: [agent/create.md]
+intake:
+  zulip: requests
+repositories:
+  project: {path: ., access: editable}
+  study: {path: study/study-sfx, access: editable}
+  wedo: {path: wedo/wedo-sfx, access: editable}
+  lab: {path: lab, access: editable}
+nodes:
+  produce:
+    type: do
+    name: Produce candidates
+    description: |
+      Render the candidates by the chosen route, with what regenerates each
+      one (script or workflow JSON, seed, command).
+    repositories: [wedo, lab, study]
+  screen:
+    type: do
+    name: Screen before listening
+    description: |
+      Run the technical checks and the analytical pre-review stage on every
+      candidate; fix or drop what they find, and say what was dropped and
+      why. Write the predicted verdict per candidate and criterion before
+      anything is presented.
+    repositories: [wedo, lab]
+  present:
+    type: do
+    name: Present
+    appearance: {icon: present, color: teal}
+    description: |
+      Build the review package (the candidates and what to listen for, one
+      question per criterion) and register and start it as the run's
+      presentation; confirm that its link opens.
+    repositories: [lab]
+  review:
+    type: talk
+    name: Listen and judge
+    confirms: result
+    description: |
+      Ask the person to listen to the presentation and judge recognition,
+      naturalness and fit for the stated use. Changes they ask for are made
+      in a further produce and present round added to this run, then asked
+      about again.
+    repositories: [wedo]
+  record:
+    type: do
+    name: Record what was learned
+    description: |
+      Promote the request to a case in wedo-sfx with its recipe; add the
+      evidence line to the method card, move the guide row if the verdict
+      moves it, append the calibration row (prediction against verdict), and
+      write an escalation when the answers show a gap no method closes.
+    repositories: [wedo]
+  cleanup:
+    type: do
+    name: Clean up
+    appearance: {icon: cleanup, color: slate}
+    description: |
+      Stop every presentation this run started and confirm it is stopped.
+    repositories: [lab]
+edges:
+  - {from: produce, to: screen}
+  - {from: screen, to: present}
+  - {from: present, to: review}
+  - {from: review, to: record}
+  - {from: record, to: cleanup}
